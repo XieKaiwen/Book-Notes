@@ -1,0 +1,45 @@
+<%- include("./partials/header.ejs") %>
+
+    <h1 class="header serif new-book">New Book</h1>
+
+
+<div class="container">
+    <form action="/addBook" method="post" class="new-book-form">
+        <div class="form-item">
+            <label for="title">Title*</label><br>
+            <input type="text" name="title" autofocus required placeholder="<%= locals.error ? error :  ''%>"><br>
+        </div>
+
+        <div class="form-item">
+            <label for="description">Description</label><br>
+            <textarea name="description" id="" cols="30" rows="10" placeholder="description" autocomplete="false"></textarea><br>
+        </div>
+
+        <div class="form-item">
+            <label for="author">Author*</label><br>
+            <input type="text" name="author" required><br>
+        </div>
+
+        <div class="form-item">
+            <label for="rating">Rating (1-10)*</label><br>
+            <input type="text" name="rating" required><br>
+        </div>
+
+        <div class="form-item">
+            <label for="IBSN">ISBN*</label><br>
+            <input type="text" name="ISBN" required><br>
+        </div>
+
+        <div class="form-item">
+            <label for="date">Date Added (yyyy-mm-dd)</label><br>
+            <input type="text" name="date"><br>
+        </div>
+
+
+        <input type="submit" value="Done" class="btn">
+    </form>
+    <div class="align-right"> <button onclick="window.location.href = '/';" class="btn back-btn" style="background-color: orange;">Back to home page</button></div>
+   
+    
+</div>
+<%- include("./partials/footer.ejs") %>

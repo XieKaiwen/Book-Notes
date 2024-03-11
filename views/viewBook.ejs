@@ -1,0 +1,90 @@
+<%- include("./partials/viewBookheader.ejs") %>
+
+<%if(locals.bookDetails){%>
+
+    <span id="id" hidden><%= bookDetails.id %></span>
+    <h1 class="header serif"><%= bookDetails.title%></h1>        
+    <form action="/newNote" method="post" style="display: inline;">
+        <input type="hidden" name="title" value="<%= bookDetails.title%>">
+        <input type="hidden" name="id" value="<%= bookDetails.id %>">
+        <input class="btn note-btn" type="submit" value="New note">
+    </form>
+    <button type="button" onclick="window.location.href='/'" class="btn" style="margin-left:0.5rem; background-color: orange;">Back to Home</button>  
+    <div class="container book-info">
+
+        <img class="book-cover new-note" src="data:image/jpeg;base64,<%=bookDetails.cover_picture.toString('base64')%>" alt="" />
+        <small class="author">Author: <%= bookDetails.author %></small>
+    </div>
+
+    <div class="container">
+        <div class="description">
+            <h2 class="serif" style="margin-bottom: 1rem;">Description: </h2>
+            <div class="des-content">
+                <p class="des-item"><%=bookDetails.description%></p>
+                <form class="des-item hidden" action="/edit" method="post">
+                    <input type="hidden" name="book_id" value="<%=bookDetails.id%>">
+                    <input type="hidden" name="type" value="description">
+                    <input type="hidden" name="content" value="<%=bookDetails.description%>">
+                    <input type="hidden" name="title" value="<%=bookDetails.title%>">
+                    <input class="edit-img" type="image" src="../images/pencil.png">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container note-list">
+        <h2 style="margin-bottom: 1rem;">Notes:</h2>
+        <% if(locals.notelist){ %>
+            <% notelist.forEach((note) => { %>
+                <div class="note" id="<%=note.id%>">
+                    <p><%= note.content%></p>
+                    <form class="hidden" action="/edit" method="post">
+                        <input type="hidden" name="book_id" value="<%=bookDetails.id%>">
+                        <input type="hidden" name="note_id" value="<%=note.id%>">
+                        <input type="hidden" name="type" value="note">
+                        <input type="hidden" name="content" value="<%= note.content%>">
+                        <input type="hidden" name="title" value="<%=bookDetails.title%>">
+                        <input class="edit-img" type="image" src="../images/pencil.png">
+                        <input class="delete-img" type="image" src="../images/trash.png" formaction="/deleteNote" >
+                    </form>
+                </div>
+            <% }) %>
+        <% } else{ %>
+            <p>No notes yet...</p>
+            
+        <% }%>    
+    </div>
+
+<% } else{ %>
+    <h1>ERROR</h1>
+<% } %>
+
+    <script>
+        $(document).ready(function() {
+            $(".description").hover(
+                function() {
+                    // Mouse enter - show the content
+                    $(".description form").removeClass("hidden");
+                },
+                function() {
+                    // Mouse leave - hide the content
+                    $(".description form").addClass("hidden");
+                }
+            );
+
+            $(".note").hover(
+                function() {
+                    // Mouse enter - show the content
+                    const id = $(this).attr('id');
+                    $(`.note#${id} form`).removeClass("hidden");
+                },
+                function() {
+                    // Mouse leave - hide the content
+                    const id = $(this).attr('id');
+                    $(`.note#${id} form`).addClass("hidden");
+                }
+            );
+        });
+    </script>   
+
+<%- include("./partials/footer.ejs") %>

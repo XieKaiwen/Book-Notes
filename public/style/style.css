@@ -1,0 +1,196 @@
+h1,
+h2,
+p {
+    margin:0;
+}
+
+body{
+    background-image: url("../images/wooden_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vH;
+    color: white;
+    font-family: "Raleway", sans-serif;
+}
+
+.serif{
+    font-family: "Playfair Display";
+}
+
+.header{
+    text-decoration: underline;
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.order-form{
+    display: inline;
+    margin-left: 2rem;
+    margin-right: 1rem;
+}
+
+.new-form{
+    display: inline;
+}
+
+.order-form>select{
+    font-family: "Raleway", sans-serif;
+    color: black;
+    padding: 0.4rem 1rem 0.4rem 0.4rem;
+}
+
+option{
+    border-radius: 0%;
+}
+
+.btn{
+    background-color: #69F0F5;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.6rem 0.8rem;
+}
+
+.btn:hover{
+    background-color: #57C6CA;
+    cursor: pointer;
+}
+
+.container{
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+}
+
+.form-item{
+    margin-bottom: 1rem;
+}
+
+.new-book-form input,textarea{
+    margin-top: 0.5rem;
+    font-family: "Raleway", sans-serif;
+}
+
+.new-book-form input[type = 'text']{
+    width: 13.5rem;
+}
+
+.book-shelf{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    gap:2rem;
+}
+
+.book-item{
+    height: 20rem;
+    width: 17rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+}
+
+.redirect:hover{
+    cursor: pointer;
+    /* border: 0.1rem solid #4169e1; */
+}
+
+.book-rating{
+    margin-left: 0.5rem;
+    color: #FFDF00;
+    font-family: "Raleway", sans-serif;
+    font-size:1rem;
+    font-weight: normal;
+}
+
+.book-image{
+    height: 80%
+}
+
+.book-name{
+    font-size: 1.2rem;
+    font-weight: bold;
+    max-width: 100%;
+    margin-top: 0.3rem;
+    margin-bottom: 0.1rem;
+}
+
+.align-right{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .new-book{
+    margin-left: auto;
+} */
+
+.back-btn{
+    margin-left: auto;
+    margin-top: -3rem;
+}
+
+.note-btn{
+    margin-left: 3.5rem;
+}
+
+.book-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    text-align: center;
+}
+
+.description{
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.des-item{
+    display: inline;
+}
+
+.edit-img{
+    width:1.2rem;
+    display:block;
+    margin-bottom: 1rem;
+}
+
+.delete-img{
+    width:1.2rem;
+    display:block;
+    margin-top: 1rem;
+}
+
+.des-content{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+}
+
+.des-content > p {
+    width:75%
+}
+
+.note{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.note > p {
+    width:75%
+}
+
+#content:invalid {
+    border: 1px solid red;
+}

@@ -1,0 +1,20 @@
+<%- include("./partials/header.ejs") %>
+
+<h1 class="header serif new-book">New note for "<%=title%>"</h1>
+
+
+<div class="container">
+    <form action="/addNote" method="post" class="new-book-form">
+        <input type="hidden" name="book_id" value="<%= book_id %>">
+        <div class="form-item">
+            <label for="new Note">Note:</label><br>
+            <textarea name="note" id="" cols="30" rows="10" placeholder="<%= locals.error ? error :  'Note'%>" autocomplete="false" required></textarea><br>
+        </div>
+
+        <input type="submit" value="Done" class="btn">
+    </form>
+    <div class="align-right"> <button onclick="window.location.href = '/view/<%= book_id %>';" class="btn back-btn" style="background-color: orange;">Back to book</button></div>
+   
+    
+</div>
+<%- include("./partials/footer.ejs") %>

@@ -1,0 +1,55 @@
+<%- include("./partials/header.ejs") %>
+
+    <section class="library">
+      <h1 class="header serif">Kaiwen's Book Notes</h1>
+      <form action="/order" class="order-form" method="post">
+        <label for="Select ">Order by:</label>
+        <select name="criteria" id="order" onchange="this.form.submit()">
+            <% if(locals.order){ %>
+                <% if(order == 'Recent'){ %>
+                    <option value="Recent">Recent</option>
+                    <option value="Rating">Rating</option>
+                <%  } else{ %>
+                    <option value="Rating">Rating</option>
+                    <option value="Recent">Recent</option>
+                 <% } %> 
+            <% } %>
+
+        </select>
+      </form>
+
+      <form action="/newBook" class="new-form" method="get">
+        <input
+          class="btn"
+          type="submit"
+          name="new-book"
+          id="new-book"
+          value="New Book"
+        />
+      </form>
+
+      <div class="container book-shelf">
+        <% if(locals.books){ %> <% books.forEach((book) => { %>
+        <div class="book-item redirect">
+          <span id="id" hidden><%= book.id %></span>
+          <img class="book-image" src="data:image/jpeg;base64,<%= book.cover_picture.toString('base64') %>" alt="" />
+          <p class="book-name serif"><%= book.title %></p>
+          <small class="date-added"><%= book.date_added%><span class="book-rating">(<%= book.rating %>/10)</span></small>
+        </div>
+
+        <% }) %> <% } %>
+      </div>
+    </section>
+    <script>
+      $(document).ready(function() {
+          $(".redirect").on("click", function() { //cannot use the => operator because of some problem of not being able to capture the "this" element correctly
+              const id = $(this).find('#id').html();
+              console.log(id);
+              // Uncomment the line below to redirect to the new path
+              window.location.href = `/view/${id}`;
+          });
+      });
+  
+  </script>
+
+<%- include("./partials/footer.ejs") %>

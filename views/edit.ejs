@@ -1,0 +1,48 @@
+<%- include("./partials/header.ejs") %>
+
+<h1 class="header serif new-book">Edit <%= type%> for "<%= title %>"</h1>
+
+
+<div class="container">
+    <form onsubmit="return validateForm()" action="/editDone" method="post" class="new-book-form">
+
+        <div class="form-item">
+            <input type="hidden" name="type" value="<%= type %>">
+            <input type="hidden" name="book_id" value="<%= book_id %>">
+            <input type="hidden" name="note_id" value="<%= locals.note_id ? note_id : ''%>">
+            <label for="Content">Content</label><br>
+            <textarea name="content" id="content" cols="90" rows="13" placeholder="<%= locals.error ? error :  'content'%>" autocomplete="off" ><%= content %></textarea><br>
+        </div>
+<!-- oninvalid="this.setCustomValidity('Field cannot be blank')" oninput="setCustomValidity('')" -->
+
+        <input type="submit" value="Done" class="btn">
+    </form>
+    <div class="align-right"> <button onclick="window.location.href = `/view/${book_id}`;" class="btn back-btn" style="background-color: orange;">Back to book</button></div>
+   
+    
+</div>
+
+<script>
+    function validateForm() {
+        let content = $('#content');
+
+        // Check if the input is empty
+        if (content.val().trim() === '') {
+            // Set a custom validation message
+            content[0].setCustomValidity('Field cannot be blank');
+            return false;
+        } else {
+            // Reset the validation message
+            content[0].setCustomValidity('');
+            return true;
+        }
+    }
+
+    // Clear the custom validity message on input
+    $('#content').on('input', function () {
+        this.setCustomValidity('');
+    });
+</script>
+
+
+<%- include("./partials/footer.ejs") %>

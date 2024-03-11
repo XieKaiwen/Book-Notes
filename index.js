@@ -3,16 +3,22 @@ import pg from "pg";
 import bodyParser from "body-parser";
 import axios from "axios";
 import fs from "fs";
+import 'dotenv/config';
 
 
 const app = express();
 const port = 3000;
+const host = process.env.HOST;
+const database = process.env.DATABASE;
+const password = process.env.PASSWORD;
+const dbport = parseInt(process.env.PORT);
+
 const db = new pg.Client({
     user: "postgres",
-    host: "localhost",
-    database: "Book_Notes_Project",
-    password: "flam1ngb0Y",
-    port: 5432,
+    host: host,
+    database: database, 
+    password: password,
+    port: dbport,
   });
 
 db.connect();
@@ -157,7 +163,6 @@ app.post("/addBook", async(req, res) => {
 
 app.get("/view/:id", async (req, res) => {
     const id = parseInt(req.params.id);
-    console.log(id);
     const bookDetails = await getDetails(id);
     const noteList = await getNotes(id);
     // console.log(bookDetails);

@@ -2,6 +2,7 @@
 
     <section class="library">
       <h1 class="header serif">Kaiwen's Book Notes</h1>
+      <!-- Order by Ratings or Recent -->
       <form action="/order" class="order-form" method="post">
         <label for="Select ">Order by:</label>
         <select name="criteria" id="order" onchange="this.form.submit()">
@@ -17,7 +18,7 @@
 
         </select>
       </form>
-
+      <!-- Button for adding a book -->
       <form action="/newBook" class="new-form" method="get">
         <input
           class="btn"
@@ -28,6 +29,7 @@
         />
       </form>
 
+      <!-- Displaying Books -->
       <div class="container book-shelf">
         <% if(locals.books){ %> <% books.forEach((book) => { %>
         <div class="book-item redirect">
@@ -41,6 +43,8 @@
       </div>
     </section>
     <script>
+
+      // Rerouting to the page to view book details when clicked on icon
       $(document).ready(function() {
           $(".redirect").on("click", function() { //cannot use the => operator because of some problem of not being able to capture the "this" element correctly
               const id = $(this).find('#id').html();

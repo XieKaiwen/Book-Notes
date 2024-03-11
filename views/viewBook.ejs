@@ -15,7 +15,7 @@
         <img class="book-cover new-note" src="data:image/jpeg;base64,<%=bookDetails.cover_picture.toString('base64')%>" alt="" />
         <small class="author">Author: <%= bookDetails.author %></small>
     </div>
-
+    <!-- Display description -->
     <div class="container">
         <div class="description">
             <h2 class="serif" style="margin-bottom: 1rem;">Description: </h2>
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-
+    <!-- Display notes -->
     <div class="container note-list">
         <h2 style="margin-bottom: 1rem;">Notes:</h2>
         <% if(locals.notelist){ %>
@@ -44,6 +44,7 @@
                         <input type="hidden" name="type" value="note">
                         <input type="hidden" name="content" value="<%= note.content%>">
                         <input type="hidden" name="title" value="<%=bookDetails.title%>">
+                        <!-- Edit and Delete buttons are hidden unless cursor is hovered over the note -->
                         <input class="edit-img" type="image" src="../images/pencil.png">
                         <input class="delete-img" type="image" src="../images/trash.png" formaction="/deleteNote" >
                     </form>

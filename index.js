@@ -39,6 +39,7 @@ try{
 app.use(express.static("./public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Fetching image from Open Library API as a binary buffer and storing it as bytea in Postgres
 async function fetchImage(url){
     try{ 
         console.log(url);
@@ -55,6 +56,7 @@ async function fetchImage(url){
         
         console.error(err, "returning");
         console.log("image not received");
+        // Defaults to the default image if no image is received (empty buffer)
         return defaultImageBin;
     }
 }
@@ -67,7 +69,7 @@ async function getBooks(){
         } else{
             criteria = "rating"
         }
-
+        // Retrieiving books in a specified order
         const response = await db.query(`SELECT id, title, rating, cover_picture, TO_CHAR(date_added, 'DD-MM-YYYY') AS date_added FROM book_titles ORDER BY ${criteria} DESC`);
         return response.rows;
     } catch(err){
@@ -119,23 +121,21 @@ app.post("/addBook", async(req, res) => {
     const date = req.body.date.trim();
     const isbn = req.body.ISBN.trim();
     
+
+    // API URL
     const url = `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`
 
     //fetching the binary data from the open library API and storing it in this imageBuffer
 
     const imageBuffer = await fetchImage(url);
 
-    // if (!imageBuffer || imageBuffer.length === 0) {
-    //     imageBuffer = defaultImageBin;
-    // }
-    
     console.log("imageBuffer", imageBuffer);
     try {
         let result;
         if(date){
             result = await db.query("INSERT INTO book_titles (title, rating, cover_picture, date_added) VALUES($1, $2, $3, $4) RETURNING *", [title, rating, imageBuffer, date]);
         } else{
-            result = await db.query("INSERT INTO book_titles (title, rating, cover_picture) VALUES($1, $2, $3) RETURNING *", [title, rating, imageBuffer]);
+            result = await db.query("INSERT INTO book_titles (title, rating, cover_picture) VALUES($1, $2, $3) RETURNING *", [title, rating, imageBuffer]); //if no date value is provided, defaults to current date
         }
         
         console.log(result.rows);
@@ -162,6 +162,7 @@ app.post("/addBook", async(req, res) => {
 });
 
 app.get("/view/:id", async (req, res) => {
+    // Route for viewing book 
     const id = parseInt(req.params.id);
     const bookDetails = await getDetails(id);
     const noteList = await getNotes(id);
@@ -205,8 +206,6 @@ app.post("/addNote", async (req, res) => {
     }
 });
 
-//can add in a delete button for the notes
-//yet to do the functioanlity for edit notes and description yet
 app.post("/edit", (req, res) => {
     const type = req.body.type;
     const content = req.body.content;

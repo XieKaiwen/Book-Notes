@@ -1,8 +1,10 @@
 <%- include("./partials/header.ejs") %>
 
+<!-- Header changes according to if editting description or notes -->
+
 <h1 class="header serif new-book">Edit <%= type%> for "<%= title %>"</h1>
 
-
+<!-- Content cannot be empty otherwise there will be a message shown -->
 <div class="container">
     <form onsubmit="return validateForm()" action="/editDone" method="post" class="new-book-form">
 
@@ -13,7 +15,7 @@
             <label for="Content">Content</label><br>
             <textarea name="content" id="content" cols="90" rows="13" placeholder="<%= locals.error ? error :  'content'%>" autocomplete="off" ><%= content %></textarea><br>
         </div>
-<!-- oninvalid="this.setCustomValidity('Field cannot be blank')" oninput="setCustomValidity('')" -->
+
 
         <input type="submit" value="Done" class="btn">
     </form>
